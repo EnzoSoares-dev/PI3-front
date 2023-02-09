@@ -14,7 +14,7 @@ export const RouteApp = ()=>{
                 <Route path='/home'/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>
-                <Route path='process/create' element={<IsAuth type={'empresa'} component={<Process/>}/>}/>
+                <Route path='/process' element={<IsAuth type={'empresa'} component={<Process/>}/>}/>
             </Routes>
         </BrowserRouter>
     )

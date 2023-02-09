@@ -1,5 +1,5 @@
 import React from "react"
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { client } from "../../service/comunication"
 import { Header } from "../header"
 import { StyledForm } from "../../components/form/styled"
@@ -8,6 +8,7 @@ import { Primary } from "../../components/buttons/primary/primary"
 import { useState } from "react"
 
 export const Login = () => {
+    const navigate = useNavigate()
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -19,12 +20,11 @@ export const Login = () => {
              [name]: value })
     }
 
-    const handleSubmit = async() => {
-        await client.post('http://localhost:9000/empresa/register',user)
+    const handleSubmit = async() => { 
+        await client.post('/login',user)
         .then((res) => {
-                alert('algo')
-                sessionStorage.setItem('token',res.data.token)
-                redirect('/')
+                window.sessionStorage.setItem('token',res.data.token)
+                navigate('/process')
             })
             .catch((err)=>{
                 alert(err)

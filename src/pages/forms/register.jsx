@@ -5,14 +5,15 @@ import { StyledForm } from "../../components/form/styled"
 import { InputText } from "../../components/inputs/text/text"
 import { Header } from "../header"
 import { useState } from "react"
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export const Register = () => {
+    const navigate = useNavigate()
     const [disable, setDisable] = useState(true)
     const [user, setUser] = useState({
-        nome: '',
+        name: '',
         email: '',
-        cnpj: '',
+        CNPJ: '',
         password: '',
     })
 
@@ -31,11 +32,11 @@ export const Register = () => {
 
     const handleSubmit = async() => {
         console.log(user)
-        await client.post('http://localhost:9000/empresa/register',user)
+        await client.post('/empresa/register',user)
         .then((res) => {
                 alert('algo')
-                sessionStorage.setItem('token',res.data.token)
-                redirect('/')
+                window.sessionStorage.setItem('token',res.data.token)
+                navigate('/process')
             })
             .catch((err)=>{
                 alert(err)
@@ -48,9 +49,9 @@ export const Register = () => {
         <br/>
         <StyledForm>
             <br/>
-            <InputText type={'text'} placeholder={'Nome'} name={'nome'} onChange={handleChange}/>
+            <InputText type={'text'} placeholder={'Nome'} name={'name'} onChange={handleChange}/>
             <InputText type={'text'} placeholder={'Email'} name={'email'} onChange={handleChange}/>
-            <InputText type={'text'} placeholder={'CNPJ'} name={'cnpj'} onChange={handleChange}/>
+            <InputText type={'text'} placeholder={'CNPJ'} name={'CNPJ'} onChange={handleChange}/>
             <InputText type={'password'} placeholder={'Password'} name={'password'} onChange={handleChange}/>
             <InputText type={'password'} placeholder={'Confirm'} name={'confirm'} onChange={confirmPassword}/>
             <br/>
