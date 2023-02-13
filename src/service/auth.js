@@ -7,7 +7,7 @@ export const IsAuth = ({type=['empresa'], component})=>{
     const role = sessionStorage.getItem('token')
     if(role){
         const token = decodeToken(role)
-        if (localStorage.getItem('token') && type.includes(token.role)) {
+        if (sessionStorage.getItem('token') && type.includes(token.role)) {
             return component || <Outlet />
           }
     }

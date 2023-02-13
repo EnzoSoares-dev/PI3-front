@@ -16,9 +16,9 @@ export const Header = ()=>{
             <HeaderDiv>
                 <Link to={'/'}>Home</Link>
                 <Link onClick={logout} to={'/'}>Logout</Link>
-                <Link to={'/process'}>Processos</Link>
+                <Link to={'/process'}>Criar Processos</Link>
                 <Link to={'/edit'}>Editar Perfil</Link>
-                <Link to={'/process/list'}>Processos</Link>
+                <Link to={'/process/list'}>Listar Processos</Link>
             </HeaderDiv>
         )
     }else{
