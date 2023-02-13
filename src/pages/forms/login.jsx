@@ -27,7 +27,7 @@ export const Login = () => {
                 navigate('/process')
             })
             .catch((err)=>{
-                alert(err)
+                alert('Essa conta não existe')
             })
     }
 

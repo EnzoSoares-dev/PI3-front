@@ -8,32 +8,27 @@ import { StyledForm } from "../../components/form/styled"
 import { Primary } from "../../components/buttons/primary/primary"
 import { useState } from "react"
 import { Header } from "../header"
+import { useNavigate } from "react-router-dom"
 
 export const Process = () => {
+    const navigate = useNavigate()
     const [process, setProcess] = useState({
 
     })
-    const [item,setItem] = useState()
-    const formData = new FormData()
-
-
     const handleChange = (e) => {
         const { name, value } = e.target
-        formData.append(name, value)
-    }
-    const handleFile = (e) =>{
-        const {name, value} = e.target
-        console.log(e.dataTransfer)
-        formData.append(name, e.dataTransfer.files[0])
-        console.log(process)
+        setProcess({
+            ...process,
+            [name]:value
+        })
     }
     const handleSubmit = async ()=>{
-        formData.set('process', 'process')
-        console.log('form: ',formData.get(process))
-        console.log(process)
-        alert('algo')
         const token = decodeToken(sessionStorage.getItem('token'))
-        await client.post(`/processo/create/${token.id}`,{data:process,headers:{"Content-Type": "multipart/form-data" }})
+        console.log(token.id)
+        const algo = await client.post(`/processo/create/${token.id}`,process)
+        .then((res)=>{
+            navigate('/process/list')
+        })
     }
 
     return(
@@ -48,11 +43,9 @@ export const Process = () => {
             <InputText type={'number'} placeholder={'Etapas'} name={'steps'} onChange={handleChange}/>
             <InputText type={'date'}name={'start_date'} onChange={handleChange}/>
             <InputText type={'date'} name={'end_date'} onChange={handleChange}/>
-            <InputFile accept={'image/png, image/jpeg'} name={'image'} onChange={handleFile}/>
             <br/>
             <Primary label={'Enviar'} onClick={handleSubmit}/>
         </StyledForm>
-        <img src={item} alt="" />
         </FlexDiv>
         </div>
     )

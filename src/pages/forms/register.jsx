@@ -6,6 +6,7 @@ import { InputText } from "../../components/inputs/text/text"
 import { Header } from "../header"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { decodeToken } from "react-jwt"
 
 export const Register = () => {
     const navigate = useNavigate()
@@ -31,10 +32,10 @@ export const Register = () => {
     }
 
     const handleSubmit = async() => {
-        console.log(user)
         await client.post('/empresa/register',user)
         .then((res) => {
                 alert('algo')
+                console.log(res.data)
                 window.sessionStorage.setItem('token',res.data.token)
                 navigate('/process')
             })
